@@ -24,6 +24,11 @@ public class BubbleSort {
     private long trocas;
     private long passadas;
 
+    /** Se true, mostra no console o andamento da ordenação a cada 5%. */
+    private boolean mostrarProgresso = false;
+
+    public void setMostrarProgresso(boolean mostrar) { this.mostrarProgresso = mostrar; }
+
     public void ordenarDecrescente(Empresa[] empresas) {
         comparacoes = 0;
         trocas = 0;
@@ -37,6 +42,8 @@ public class BubbleSort {
         }
 
         int limite = n - 1;          // última posição que ainda precisa ser comparada
+        int proximoAviso = 5;        // próximo percentual a ser mostrado
+        long inicio = System.nanoTime();
         while (limite > 0) {
             int ultimaTroca = 0;
             passadas++;
@@ -56,6 +63,18 @@ public class BubbleSort {
             }
             comparacoes += limite;
             limite = ultimaTroca;    // se não houve troca, ultimaTroca = 0 e o laço termina
+
+            if (mostrarProgresso) {
+                // o trabalho restante é proporcional a limite², então o feito é 1 - (limite/n)²
+                double r = (double) limite / n;
+                int pct = (int) ((1 - r * r) * 100);
+                if (pct >= proximoAviso && limite > 0) {
+                    double seg = (System.nanoTime() - inicio) / 1e9;
+                    System.out.printf("  %3d%% concluído (%.1f min decorridos, ~%.1f min restantes)%n",
+                            pct, seg / 60, seg / pct * (100 - pct) / 60);
+                    proximoAviso = (pct / 5 + 1) * 5;
+                }
+            }
         }
     }
 

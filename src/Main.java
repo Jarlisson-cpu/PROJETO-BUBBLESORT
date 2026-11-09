@@ -10,7 +10,8 @@ import java.nio.file.Path;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        Path entrada = args.length > 0 ? Path.of(args[0]) : ArquivoEmpresas.localizarEntrada();
+        Path entrada = args.length > 0 ? Path.of(args[0]) : null;
+        if (entrada == null || !java.nio.file.Files.exists(entrada)) entrada = ArquivoEmpresas.localizarEntrada();
         if (entrada == null) {
             System.out.println("Arquivo Empresas_BubbleSort.txt não encontrado na pasta do projeto.");
             return;
@@ -28,11 +29,20 @@ public class Main {
 
         System.out.println("Ordenando com Bubble Sort (maior -> menor)... isso pode demorar.");
         BubbleSort sorter = new BubbleSort();
+        sorter.setMostrarProgresso(empresas.length >= 50_000);
         sorter.ordenarDecrescente(empresas);
         long t2 = System.nanoTime();
         System.out.printf("Ordenação concluída em %.2f s (%.2f min)%n", (t2 - t1) / 1e9, (t2 - t1) / 60e9);
         System.out.printf("Passadas: %,d | Comparações: %,d | Trocas: %,d%n",
                 sorter.getPassadas(), sorter.getComparacoes(), sorter.getTrocas());
+
+        boolean ordenado = true;
+        for (int i = 0; i + 1 < empresas.length; i++) {
+            if (empresas[i].getValorCentavos() < empresas[i + 1].getValorCentavos()) { ordenado = false; break; }
+        }
+        System.out.println("Verificação: " + (ordenado
+                ? "OK - todos os registros estão do maior para o menor valor"
+                : "ERRO - a lista não está ordenada"));
 
         ArquivoEmpresas.gravar(saida, empresas);
         long t3 = System.nanoTime();
