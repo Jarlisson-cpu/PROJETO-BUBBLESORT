@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /** Leitura e gravação dos arquivos TXT no formato "Nome | IE | Valor". */
 public class ArquivoEmpresas {
@@ -44,5 +46,27 @@ public class ArquivoEmpresas {
                 escritor.newLine();
             }
         }
+    }
+
+    /**
+     * Procura Empresas_BubbleSort.txt na pasta do projeto. Se não existir,
+     * extrai de dados/Empresas_BubbleSort.zip. Retorna null se não encontrar.
+     */
+    public static Path localizarEntrada() throws IOException {
+        Path txt = Path.of("Empresas_BubbleSort.txt");
+        if (Files.exists(txt)) return txt;
+        Path zip = Path.of("dados", "Empresas_BubbleSort.zip");
+        if (!Files.exists(zip)) return null;
+        System.out.println("Extraindo " + zip + " ...");
+        try (ZipInputStream zin = new ZipInputStream(Files.newInputStream(zip))) {
+            ZipEntry entrada;
+            while ((entrada = zin.getNextEntry()) != null) {
+                if (entrada.getName().endsWith("Empresas_BubbleSort.txt")) {
+                    Files.copy(zin, txt);
+                    return txt;
+                }
+            }
+        }
+        return null;
     }
 }
