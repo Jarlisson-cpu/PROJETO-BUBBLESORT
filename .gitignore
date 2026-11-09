@@ -1,0 +1,8 @@
+out/
+*.class
+Empresas_BubbleSort.txt
+Empresas_Ordenadas.txt
+Saida_*.txt
+.idea/
+.vscode/
+*.iml
