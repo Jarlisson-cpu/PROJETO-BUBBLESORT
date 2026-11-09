@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * Testes do sistema (sem bibliotecas externas). Cada teste imprime OK ou FALHOU.
@@ -24,7 +26,9 @@ public class TesteBubbleSort {
         testeConversaoCentavos();
         testeAleatorioComparadoComJava();
         testeLeituraEGravacao();
-        if (args.length > 0) testeAmostraDoArquivoReal(Path.of(args[0]));
+        Path arquivoReal = localizarArquivoReal(args);
+        if (arquivoReal != null) testeAmostraDoArquivoReal(arquivoReal);
+        else System.out.println("[AVISO]  Empresas_BubbleSort.txt não encontrado: teste com o arquivo real não executado");
         System.out.printf("%nResultado: %d OK, %d FALHA(S)%n", ok, falhas);
         if (falhas > 0) System.exit(1);
     }
@@ -128,6 +132,29 @@ public class TesteBubbleSort {
         double s = (System.nanoTime() - t) / 1e9;
         verificar(String.format("Primeiros 50.000 registros do arquivo real ordenados corretamente (%.2f s)", s),
             estaDecrescente(v) && Arrays.equals(v, esperado));
+    }
+
+    /**
+     * Procura o arquivo real: primeiro o caminho passado como argumento, depois
+     * Empresas_BubbleSort.txt na pasta do projeto. Se não existir, extrai de dados/Empresas_BubbleSort.zip.
+     */
+    private static Path localizarArquivoReal(String[] args) throws Exception {
+        if (args.length > 0) return Path.of(args[0]);
+        Path txt = Path.of("Empresas_BubbleSort.txt");
+        if (Files.exists(txt)) return txt;
+        Path zip = Path.of("dados", "Empresas_BubbleSort.zip");
+        if (!Files.exists(zip)) return null;
+        System.out.println("Extraindo " + zip + " ...");
+        try (ZipInputStream zin = new ZipInputStream(Files.newInputStream(zip))) {
+            ZipEntry entrada;
+            while ((entrada = zin.getNextEntry()) != null) {
+                if (entrada.getName().endsWith("Empresas_BubbleSort.txt")) {
+                    Files.copy(zin, txt);
+                    return txt;
+                }
+            }
+        }
+        return null;
     }
 
     private static Empresa[] gerar(int n, long semente) {
