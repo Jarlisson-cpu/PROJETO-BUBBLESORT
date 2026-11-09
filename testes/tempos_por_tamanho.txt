@@ -1,0 +1,12 @@
+Registros lidos: 10,000 (0.09 s)
+Ordenação concluída em 0.21 s (0.00 min)
+Passadas: 9,842 | Comparações: 49,964,098 | Trocas: 25,044,468
+Registros lidos: 50,000 (0.21 s)
+Ordenação concluída em 6.00 s (0.10 min)
+Passadas: 49,795 | Comparações: 1,249,848,657 | Trocas: 627,826,002
+Registros lidos: 100,000 (0.35 s)
+Ordenação concluída em 22.13 s (0.37 min)
+Passadas: 99,551 | Comparações: 4,999,208,836 | Trocas: 2,508,577,389
+Registros lidos: 200,000 (0.56 s)
+Ordenação concluída em 183.23 s (3.05 min)
+Passadas: 199,707 | Comparações: 19,999,249,012 | Trocas: 10,008,384,923

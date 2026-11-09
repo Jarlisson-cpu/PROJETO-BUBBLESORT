@@ -1,0 +1,22 @@
+=== Estrutura de Dados S.A. - Ordenação por Valor de Mercado (Bubble Sort) ===
+Entrada: Empresas_BubbleSort.txt
+Registros lidos: 1,000,000 (0.75 s)
+Ordenando com Bubble Sort (maior -> menor)... isso pode demorar.
+Ordenação concluída em 4514.04 s (75.23 min)
+Passadas: 999,550 | Comparações: 499,996,540,252 | Trocas: 250,159,742,115
+Arquivo gravado: Empresas_Ordenadas.txt (0.80 s)
+
+Top 5 maiores valores:
+  1. Empresa 96433 | 95438272-3 | 9999993.82
+  2. Empresa 565378 | 79944601-5 | 9999979.28
+  3. Empresa 156492 | 97364927-8 | 9999971.69
+  4. Empresa 969173 | 18441995-5 | 9999941.95
+  5. Empresa 133248 | 58445063-9 | 9999940.81
+Menores valores:
+  999996. Empresa 880221 | 18077550-2 | 100130.37
+  999997. Empresa 332551 | 35742857-8 | 100115.79
+  999998. Empresa 379491 | 45469411-6 | 100113.45
+  999999. Empresa 375728 | 26893286-2 | 100103.58
+  1000000. Empresa 339426 | 76878469-9 | 100012.64
+
+Tempo total: 4515.59 s

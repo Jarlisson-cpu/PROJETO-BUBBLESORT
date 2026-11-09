@@ -1,0 +1,13 @@
+=== Testes do Bubble Sort ===
+[OK]     Exemplo do enunciado -> C, A, B
+[OK]     Vetor vazio e vetor com 1 elemento não quebram
+[OK]     Vetor já ordenado: 1 passada e 0 trocas (melhor caso O(n))
+[OK]     Ordem inversa (pior caso): n(n-1)/2 trocas = 499500
+[OK]     Valores iguais mantêm a ordem original (algoritmo estável)
+[OK]     Conversão de valores para centavos
+[OK]     20.000 registros aleatórios: resultado idêntico ao Arrays.sort do Java
+Aviso: linha 4 ignorada (Linha fora do formato esperado: linha invalida)
+[OK]     Leitura ignora linhas vazias/inválidas e gravação mantém o formato
+[OK]     Primeiros 50.000 registros do arquivo real ordenados corretamente (5.75 s)
+
+Resultado: 9 OK, 0 FALHA(S)
